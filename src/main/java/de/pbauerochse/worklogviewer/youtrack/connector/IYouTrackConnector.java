@@ -12,7 +12,7 @@ import java.util.List;
  * @author Patrick Bauerochse
  * @since 01.04.15
  */
-public interface YouTrackConnector {
+public interface IYouTrackConnector {
 
     List<GroupByCategory> getPossibleGroupByCategories() throws Exception;
 

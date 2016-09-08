@@ -3,10 +3,9 @@ package de.pbauerochse.worklogviewer.youtrack.connector;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
-import de.pbauerochse.worklogviewer.util.DateUtil;
-import de.pbauerochse.worklogviewer.util.ExceptionUtil;
-import de.pbauerochse.worklogviewer.util.JacksonUtil;
-import de.pbauerochse.worklogviewer.util.SettingsUtil;
+import de.pbauerochse.worklogviewer.settings.Settings;
+import de.pbauerochse.worklogviewer.settings.YoutrackSettings;
+import de.pbauerochse.worklogviewer.util.*;
 import de.pbauerochse.worklogviewer.youtrack.createreport.request.CreateReportRequestEntity;
 import de.pbauerochse.worklogviewer.youtrack.createreport.response.ReportDetailsResponse;
 import de.pbauerochse.worklogviewer.youtrack.domain.GroupByCategory;
@@ -45,7 +44,7 @@ import static de.pbauerochse.worklogviewer.util.HttpClientUtil.*;
  * @author Patrick Bauerochse
  * @since 15.10.15
  */
-public abstract class YouTrackConnectorBase implements YouTrackConnector {
+public abstract class YouTrackConnectorBase implements IYouTrackConnector {
 
     protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
@@ -253,7 +252,7 @@ public abstract class YouTrackConnectorBase implements YouTrackConnector {
     }
 
     protected String buildYoutrackApiUrl(String path) {
-        SettingsUtil.Settings settings = SettingsUtil.loadSettings();
+        YoutrackSettings settings = Settings.get().getYoutrackSettings();
         StringBuilder finalUrl = new StringBuilder(StringUtils.trim(settings.getYoutrackUrl()));
 
         if (!StringUtils.endsWith(settings.getYoutrackUrl(), "/") && !StringUtils.startsWith(path, "/")) {

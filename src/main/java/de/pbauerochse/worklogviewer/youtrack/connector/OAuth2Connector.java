@@ -1,8 +1,9 @@
 package de.pbauerochse.worklogviewer.youtrack.connector;
 
 import com.intellij.hub.auth.oauth2.token.AccessToken;
-import de.pbauerochse.worklogviewer.WorklogViewer;
+import de.pbauerochse.worklogviewer.settings.YoutrackSettings;
 import de.pbauerochse.worklogviewer.util.ExceptionUtil;
+import de.pbauerochse.worklogviewer.settings.Settings;
 import de.pbauerochse.worklogviewer.util.SettingsUtil;
 import jetbrains.jetpass.client.hub.HubClient;
 import jetbrains.jetpass.client.oauth2.OAuth2Client;
@@ -34,7 +35,7 @@ class OAuth2Connector extends YouTrackConnectorBase {
     @Override
     protected CloseableHttpClient performLoginIfNecessary(HttpClientBuilder clientBuilder, List<Header> requestHeaders) throws Exception {
 
-        SettingsUtil.Settings settings = SettingsUtil.loadSettings();
+        YoutrackSettings settings = Settings.get().getYoutrackSettings();
 
         if (client == null || accessToken == null || new Date().after(accessToken.getExpirationDate()) || (connectionParameterHashCode != null && !connectionParameterHashCode.equals(settings.getConnectionParametersHashCode()))) {
             LOGGER.info("Fetching new access token");

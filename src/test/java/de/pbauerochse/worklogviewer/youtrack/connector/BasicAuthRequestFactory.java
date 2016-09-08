@@ -1,6 +1,7 @@
 package de.pbauerochse.worklogviewer.youtrack.connector;
 
-import de.pbauerochse.worklogviewer.util.SettingsUtil;
+import de.pbauerochse.worklogviewer.settings.Settings;
+import de.pbauerochse.worklogviewer.settings.YoutrackSettings;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -21,9 +22,9 @@ import java.net.URI;
  */
 public class BasicAuthRequestFactory extends HttpComponentsClientHttpRequestFactory {
 
-    private SettingsUtil.Settings settings;
+    private YoutrackSettings settings;
 
-    public BasicAuthRequestFactory(SettingsUtil.Settings settings) {
+    public BasicAuthRequestFactory(YoutrackSettings settings) {
         super();
         this.settings = settings;
     }

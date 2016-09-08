@@ -13,10 +13,8 @@ import de.pbauerochse.worklogviewer.fx.tabs.OwnWorklogsTab;
 import de.pbauerochse.worklogviewer.fx.tabs.ProjectWorklogTab;
 import de.pbauerochse.worklogviewer.fx.tabs.WorklogTab;
 import de.pbauerochse.worklogviewer.fx.tasks.*;
-import de.pbauerochse.worklogviewer.util.ExceptionUtil;
-import de.pbauerochse.worklogviewer.util.FormattingUtil;
-import de.pbauerochse.worklogviewer.util.HyperlinkUtil;
-import de.pbauerochse.worklogviewer.util.SettingsUtil;
+import de.pbauerochse.worklogviewer.settings.Settings;
+import de.pbauerochse.worklogviewer.util.*;
 import de.pbauerochse.worklogviewer.version.GitHubVersion;
 import de.pbauerochse.worklogviewer.version.Version;
 import de.pbauerochse.worklogviewer.youtrack.domain.GroupByCategory;
@@ -108,14 +106,14 @@ public class MainViewController implements Initializable {
     private ToolBar mainToolbar;
 
     private ResourceBundle resources;
-    private SettingsUtil.Settings settings;
+    private Settings settings;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LOGGER.debug("Initializing main view");
         this.resources = resources;
 
-        settings = SettingsUtil.loadSettings();
+        settings = Settings.get();
 
         // prepopulate timerange dropdown
         timerangeComboBox.setConverter(new ReportTimerangeStringConverter());
@@ -161,7 +159,7 @@ public class MainViewController implements Initializable {
         fetchWorklogButton.disableProperty().bind(new BooleanBinding() {
             @Override
             protected boolean computeValue() {
-                return settings.hasMissingConnectionParameters();
+                return settings.getYoutrackSettings().hasMissingConnectionParameters();
             }
         });
         fetchWorklogButton.setOnAction(clickEvent -> startFetchWorklogsTask());
@@ -184,7 +182,7 @@ public class MainViewController implements Initializable {
         });
 
         // load group by criteria when connection parameters are present
-        if (!settings.hasMissingConnectionParameters()) {
+        if (!settings.getYoutrackSettings().hasMissingConnectionParameters()) {
             startGetGroupByCategoriesTask();
         }
 
@@ -214,7 +212,7 @@ public class MainViewController implements Initializable {
     private void onFormShown() {
         LOGGER.debug("MainForm shown");
 
-        if (settings.hasMissingConnectionParameters()) {
+        if (settings.getYoutrackSettings().hasMissingConnectionParameters()) {
             LOGGER.info("No YouTrack connection settings defined yet. Opening settings dialogue");
             showSettingsDialogue();
         }
@@ -383,7 +381,7 @@ public class MainViewController implements Initializable {
         EXECUTOR.submit(task);
     }
 
-    private void displayWorklogResult(FetchTimereportContext context, SettingsUtil.Settings settings) {
+    private void displayWorklogResult(FetchTimereportContext context, Settings settings) {
         LOGGER.info("Displaying WorklogResult to the user");
 
         if (resultTabPane.getTabs().size() == 0) {
@@ -437,7 +435,7 @@ public class MainViewController implements Initializable {
         // pass in a handler to fetch the group by categories if connection
         // parameters get set
         openDialogue("/fx/views/settings.fxml", "view.settings.title", true, Optional.of(() -> {
-            if (!settings.hasMissingConnectionParameters() && groupByCategoryComboBox.getItems().size() == 0) {
+            if (!settings.getYoutrackSettings().hasMissingConnectionParameters() && groupByCategoryComboBox.getItems().size() == 0) {
                 LOGGER.debug("Settings window closed, connection settings set and groupBy combobox empty -> trying to fetch groupByCategories");
                 startGetGroupByCategoriesTask();
             }

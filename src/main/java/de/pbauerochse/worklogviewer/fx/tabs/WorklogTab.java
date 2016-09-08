@@ -19,6 +19,7 @@ import de.pbauerochse.worklogviewer.fx.tabs.domain.DisplayRow;
 import de.pbauerochse.worklogviewer.fx.tasks.FetchTimereportContext;
 import de.pbauerochse.worklogviewer.util.ExceptionUtil;
 import de.pbauerochse.worklogviewer.util.FormattingUtil;
+import de.pbauerochse.worklogviewer.settings.Settings;
 import de.pbauerochse.worklogviewer.util.SettingsUtil;
 import de.pbauerochse.worklogviewer.youtrack.domain.TaskWithWorklogs;
 import de.pbauerochse.worklogviewer.youtrack.domain.WorklogItem;
@@ -125,7 +126,7 @@ public abstract class WorklogTab extends Tab {
     protected Node getContentNode() {
         Node taskView = getTaskView();
 
-        if (SettingsUtil.loadSettings().isShowStatistics()) {
+        if (Settings.get().isShowStatistics()) {
             LOGGER.debug("Statistics enabled in settings");
             statisticsView = new VBox(20);
 
@@ -187,7 +188,7 @@ public abstract class WorklogTab extends Tab {
             return;
         }
 
-        SettingsUtil.Settings settings = SettingsUtil.loadSettings();
+        Settings settings = Settings.get();
         if (settings.isShowStatistics() && statisticsView == null || !settings.isShowStatistics() && statisticsView != null) {
             // statistics are disabled and were previously rendered
             // or statistics are enabled and weren't rendered before
@@ -402,7 +403,7 @@ public abstract class WorklogTab extends Tab {
 
     private void updateStatisticsData(List<TaskWithWorklogs> displayResult) {
 
-        if (!SettingsUtil.loadSettings().isShowStatistics()) {
+        if (!Settings.get().isShowStatistics()) {
             return;
         }
 

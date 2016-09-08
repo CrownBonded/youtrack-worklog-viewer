@@ -3,7 +3,9 @@ package de.pbauerochse.worklogviewer.youtrack.connector;
 import de.pbauerochse.worklogviewer.util.SettingsUtil;
 import de.pbauerochse.worklogviewer.youtrack.domain.GroupByCategory;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -12,17 +14,16 @@ import java.util.List;
  * @author patrick
  * @since 07.09.16
  */
-public class RestYoutrackConnector {
+public class YoutrackConnector {
 
     private RestTemplate restTemplate;
 
-    public RestYoutrackConnector(ClientHttpRequestFactory httpRequestFactory) {
-        restTemplate = new RestTemplate(httpRequestFactory);
+    public YoutrackConnector(RestTemplate restTemplate) {
+        Assert.notNull(restTemplate, "RestTemplate must not be null");
+        this.restTemplate = restTemplate;
     }
 
     public List<GroupByCategory> getPossibleGroupByCategories() {
-        String url = buildYouTrackUrl("");
-        Object response = restTemplate.getForObject(url, Object.class);
 
         return null;
     }

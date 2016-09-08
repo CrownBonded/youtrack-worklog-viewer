@@ -2,8 +2,9 @@ package de.pbauerochse.worklogviewer.fx.tasks;
 
 import de.pbauerochse.worklogviewer.util.ExceptionUtil;
 import de.pbauerochse.worklogviewer.util.FormattingUtil;
+import de.pbauerochse.worklogviewer.settings.Settings;
 import de.pbauerochse.worklogviewer.util.SettingsUtil;
-import de.pbauerochse.worklogviewer.youtrack.connector.YouTrackConnector;
+import de.pbauerochse.worklogviewer.youtrack.connector.IYouTrackConnector;
 import de.pbauerochse.worklogviewer.youtrack.connector.YouTrackConnectorFactory;
 import de.pbauerochse.worklogviewer.youtrack.createreport.request.CreateReportRequestEntity;
 import de.pbauerochse.worklogviewer.youtrack.createreport.response.ReportDetailsResponse;
@@ -35,11 +36,11 @@ public class FetchTimereportTask extends Task<WorklogReport> {
 
     @Override
     protected WorklogReport call() throws Exception {
-        SettingsUtil.Settings settings = SettingsUtil.loadSettings();
-        YouTrackConnector connector = YouTrackConnectorFactory.getInstance();
+        Settings settings = Settings.get();
+        IYouTrackConnector connector = YouTrackConnectorFactory.getInstance();
 
         updateProgress(0, 100);
-        updateMessage(FormattingUtil.getFormatted("worker.progress.login", settings.getYoutrackUsername()));
+        updateMessage(FormattingUtil.getFormatted("worker.progress.login", settings.getYoutrackSettings().getYoutrackUsername()));
 
         // create report
         CreateReportRequestEntity reportRequestEntity = new CreateReportRequestEntity(context);

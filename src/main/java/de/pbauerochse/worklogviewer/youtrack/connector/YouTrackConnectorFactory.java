@@ -1,5 +1,7 @@
 package de.pbauerochse.worklogviewer.youtrack.connector;
 
+import de.pbauerochse.worklogviewer.settings.Settings;
+import de.pbauerochse.worklogviewer.settings.YoutrackSettings;
 import de.pbauerochse.worklogviewer.util.SettingsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,11 +14,12 @@ public class YouTrackConnectorFactory {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(YouTrackConnectorFactory.class);
 
-    private static YouTrackConnector instance;
+    private static IYouTrackConnector instance;
 
-    public static YouTrackConnector getInstance() {
+    public static IYouTrackConnector getInstance() {
 
-        SettingsUtil.Settings settings = SettingsUtil.loadSettings();
+        YoutrackSettings settings = Settings.get().getYoutrackSettings();
+
 
         if (instance == null || !instance.getAuthenticationMethod().equals(settings.getYouTrackAuthenticationMethod())) {
             // need to initialize new connector

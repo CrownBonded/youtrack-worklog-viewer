@@ -2,6 +2,8 @@ package de.pbauerochse.worklogviewer.fx;
 
 import de.pbauerochse.worklogviewer.WorklogViewer;
 import de.pbauerochse.worklogviewer.fx.converter.YouTrackAuthenticationMethodStringConverter;
+import de.pbauerochse.worklogviewer.settings.Settings;
+import de.pbauerochse.worklogviewer.settings.YoutrackSettings;
 import de.pbauerochse.worklogviewer.util.SettingsUtil;
 import de.pbauerochse.worklogviewer.youtrack.connector.YouTrackAuthenticationMethod;
 import javafx.application.Platform;
@@ -121,7 +123,7 @@ public class SettingsViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         LOGGER.debug("Initializing");
         this.resourceBundle = resources;
-        SettingsUtil.Settings settings = SettingsUtil.loadSettings();
+        Settings settings = Settings.get();
 
         for (int i = 1; i <= 24; i++) {
             workhoursComboBox.getItems().add(i);
@@ -182,19 +184,20 @@ public class SettingsViewController implements Initializable {
         });
     }
 
-    private void updateComponentsFromSettings(SettingsUtil.Settings settings) {
-        youtrackUrlField.setText(settings.getYoutrackUrl());
+    private void updateComponentsFromSettings(Settings settings) {
+        YoutrackSettings youtrackSettings = settings.getYoutrackSettings();
+        youtrackUrlField.setText(youtrackSettings.getYoutrackUrl());
 
-        if (settings.getYouTrackAuthenticationMethod() != null) {
-            youtrackAuthenticationMethodField.getSelectionModel().select(settings.getYouTrackAuthenticationMethod());
+        if (youtrackSettings.getYouTrackAuthenticationMethod() != null) {
+            youtrackAuthenticationMethodField.getSelectionModel().select(youtrackSettings.getYouTrackAuthenticationMethod());
         }
 
-        youtrackUsernameField.setText(settings.getYoutrackUsername());
-        youtrackPasswordField.setText(settings.getYoutrackPassword());
+        youtrackUsernameField.setText(youtrackSettings.getYoutrackUsername());
+        youtrackPasswordField.setText(youtrackSettings.getYoutrackPassword());
 
-        youtrackOAuthHubUrlField.setText(settings.getYoutrackOAuthHubUrl());
-        youtrackOAuthServiceIdField.setText(settings.getYoutrackOAuthServiceId());
-        youtrackOAuthServiceSecretField.setText(settings.getYoutrackOAuthServiceSecret());
+        youtrackOAuthHubUrlField.setText(youtrackSettings.getYoutrackOAuthHubUrl());
+        youtrackOAuthServiceIdField.setText(youtrackSettings.getYoutrackOAuthServiceId());
+        youtrackOAuthServiceSecretField.setText(youtrackSettings.getYoutrackOAuthServiceSecret());
 
         workhoursComboBox.getSelectionModel().select((Integer) settings.getWorkHoursADay());
         showAllWorklogsCheckBox.setSelected(settings.isShowAllWorklogs());
@@ -224,14 +227,16 @@ public class SettingsViewController implements Initializable {
         sundayHighlightCheckbox.setSelected(settings.hasHighlightState(SUNDAY));
     }
 
-    private void applyToSettings(SettingsUtil.Settings settings) {
-        settings.setYoutrackUrl(youtrackUrlField.getText());
-        settings.setYouTrackAuthenticationMethod(youtrackAuthenticationMethodField.getSelectionModel().getSelectedItem());
-        settings.setYoutrackUsername(youtrackUsernameField.getText());
-        settings.setYoutrackPassword(youtrackPasswordField.getText());
-        settings.setYoutrackOAuthHubUrl(youtrackOAuthHubUrlField.getText());
-        settings.setYoutrackOAuthServiceId(youtrackOAuthServiceIdField.getText());
-        settings.setYoutrackOAuthServiceSecret(youtrackOAuthServiceSecretField.getText());
+    private void applyToSettings(Settings settings) {
+        YoutrackSettings youtrackSettings = settings.getYoutrackSettings();
+
+        youtrackSettings.setYoutrackUrl(youtrackUrlField.getText());
+        youtrackSettings.setYouTrackAuthenticationMethod(youtrackAuthenticationMethodField.getSelectionModel().getSelectedItem());
+        youtrackSettings.setYoutrackUsername(youtrackUsernameField.getText());
+        youtrackSettings.setYoutrackPassword(youtrackPasswordField.getText());
+        youtrackSettings.setYoutrackOAuthHubUrl(youtrackOAuthHubUrlField.getText());
+        youtrackSettings.setYoutrackOAuthServiceId(youtrackOAuthServiceIdField.getText());
+        youtrackSettings.setYoutrackOAuthServiceSecret(youtrackOAuthServiceSecretField.getText());
 
         settings.setWorkHoursADay(workhoursComboBox.getSelectionModel().getSelectedItem());
         settings.setShowAllWorklogs(showAllWorklogsCheckBox.isSelected());

@@ -1,7 +1,9 @@
 package de.pbauerochse.worklogviewer.youtrack.connector;
 
+import de.pbauerochse.worklogviewer.settings.YoutrackSettings;
 import de.pbauerochse.worklogviewer.util.ExceptionUtil;
 import de.pbauerochse.worklogviewer.util.HttpClientUtil;
+import de.pbauerochse.worklogviewer.settings.Settings;
 import de.pbauerochse.worklogviewer.util.SettingsUtil;
 import org.apache.http.Header;
 import org.apache.http.NameValuePair;
@@ -29,7 +31,7 @@ class ApiLoginConnector extends YouTrackConnectorBase {
     @Override
     protected CloseableHttpClient performLoginIfNecessary(HttpClientBuilder clientBuilder, List<Header> requestHeaders) throws Exception {
 
-        SettingsUtil.Settings settings = SettingsUtil.loadSettings();
+        YoutrackSettings settings = Settings.get().getYoutrackSettings();
 
         if (loggedInClient == null || (connectionParameterHashCode != null && !connectionParameterHashCode.equals(settings.getConnectionParametersHashCode()))) {
             LOGGER.debug("New connection or connection parameters changed. Performing login");
