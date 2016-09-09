@@ -1,5 +1,6 @@
 package de.pbauerochse.worklogviewer.settings;
 
+import de.pbauerochse.worklogviewer.settings.properties.Property;
 import de.pbauerochse.worklogviewer.youtrack.connector.YouTrackAuthenticationMethod;
 import org.apache.commons.lang3.StringUtils;
 
@@ -8,14 +9,25 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class YoutrackSettings {
 
+    @Property("auth_method")
     private YouTrackAuthenticationMethod youTrackAuthenticationMethod = YouTrackAuthenticationMethod.HTTP_API;
 
+    @Property("oauth_hub_url")
     private String youtrackOAuthHubUrl;
+
+    @Property("oauth_service_id")
     private String youtrackOAuthServiceId;
+
+    @Property("oauth_service_secret")
     private String youtrackOAuthServiceSecret;
 
+    @Property("youtrackurl")
     private String youtrackUrl;
+
+    @Property("username")
     private String youtrackUsername;
+
+    @Property("password")
     private String youtrackPassword;
 
     public YouTrackAuthenticationMethod getYouTrackAuthenticationMethod() {

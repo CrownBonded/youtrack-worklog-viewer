@@ -1,14 +1,8 @@
 package de.pbauerochse.worklogviewer.settings;
 
 import de.pbauerochse.worklogviewer.domain.ReportTimerange;
-import de.pbauerochse.worklogviewer.util.ExceptionUtil;
-import de.pbauerochse.worklogviewer.youtrack.connector.YouTrackAuthenticationMethod;
-import org.apache.commons.configuration2.Configuration;
-import org.apache.commons.configuration2.PropertiesConfiguration;
-import org.apache.commons.configuration2.builder.fluent.Configurations;
-import org.apache.commons.configuration2.builder.fluent.Parameters;
-import org.apache.commons.configuration2.ex.ConfigurationException;
-import org.apache.commons.lang3.StringUtils;
+import de.pbauerochse.worklogviewer.settings.properties.NestedProperties;
+import de.pbauerochse.worklogviewer.settings.properties.Property;
 
 import java.io.File;
 import java.time.DayOfWeek;
@@ -23,33 +17,49 @@ public class Settings {
 
     private static final File CONFIG_FILE_LOCATION = new File(System.getProperty("user.home"), "youtrack-worklog.properties");
 
-
-
-
+    @NestedProperties
     private WindowSettings windowSettings = new WindowSettings();
+
+    @NestedProperties
     private YoutrackSettings youtrackSettings = new YoutrackSettings();
 
+    @Property("workhours")
     private int workHoursADay = 8;
+
+    @Property("autoload.enabled")
     private boolean loadDataAtStartup = false;
+
+    @Property("autoload.timerange")
     private ReportTimerange lastUsedReportTimerange = ReportTimerange.THIS_WEEK;
+
+    @Property("statistics.enabled")
     private boolean showStatistics = true;
+
+    @Property("showonlyowntimelogs.enabled")
     private boolean showAllWorklogs = true;
+
+    @Property("excel.decimaltimes")
     private boolean showDecimalHourTimesInExcelReport = false;
+
+    @Property("collapse.state")
     private int collapseState = createBitMaskState(SATURDAY, SUNDAY);
+
+    @Property("highlight.state")
     private int highlightState = createBitMaskState(SATURDAY, SUNDAY);
 
     private static final Settings INSTANCE = SettingsFactory.loadSettings(CONFIG_FILE_LOCATION);
+
     public static Settings get() {
         return INSTANCE;
+    }
+
+    public static void save() {
+        SettingsFactory.saveSettings(INSTANCE, CONFIG_FILE_LOCATION);
     }
 
     Settings() {
 
     }
-
-
-
-
 
 
     public int getWorkHoursADay() {
@@ -117,7 +127,6 @@ public class Settings {
     }
 
 
-
     public boolean hasHighlightState(DayOfWeek day) {
         return hasBitValue(highlightState, day);
     }
@@ -166,7 +175,5 @@ public class Settings {
     }
 
 
-    public static void save() {
-        throw new IllegalStateException("Not implemented yet");
-    }
+
 }

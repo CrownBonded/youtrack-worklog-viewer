@@ -2,7 +2,6 @@ package de.pbauerochse.worklogviewer.youtrack.connector;
 
 import de.pbauerochse.worklogviewer.settings.Settings;
 import de.pbauerochse.worklogviewer.settings.YoutrackSettings;
-import de.pbauerochse.worklogviewer.util.SettingsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

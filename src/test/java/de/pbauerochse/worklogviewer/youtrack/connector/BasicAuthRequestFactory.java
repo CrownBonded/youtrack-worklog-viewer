@@ -1,6 +1,5 @@
 package de.pbauerochse.worklogviewer.youtrack.connector;
 
-import de.pbauerochse.worklogviewer.settings.Settings;
 import de.pbauerochse.worklogviewer.settings.YoutrackSettings;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;

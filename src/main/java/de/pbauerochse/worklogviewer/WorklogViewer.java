@@ -1,11 +1,10 @@
 package de.pbauerochse.worklogviewer;
 
 import de.pbauerochse.worklogviewer.fx.MainViewController;
+import de.pbauerochse.worklogviewer.settings.Settings;
 import de.pbauerochse.worklogviewer.settings.WindowSettings;
 import de.pbauerochse.worklogviewer.util.ExceptionUtil;
 import de.pbauerochse.worklogviewer.util.FormattingUtil;
-import de.pbauerochse.worklogviewer.settings.Settings;
-import de.pbauerochse.worklogviewer.util.SettingsUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

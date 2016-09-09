@@ -14,7 +14,9 @@ import de.pbauerochse.worklogviewer.fx.tabs.ProjectWorklogTab;
 import de.pbauerochse.worklogviewer.fx.tabs.WorklogTab;
 import de.pbauerochse.worklogviewer.fx.tasks.*;
 import de.pbauerochse.worklogviewer.settings.Settings;
-import de.pbauerochse.worklogviewer.util.*;
+import de.pbauerochse.worklogviewer.util.ExceptionUtil;
+import de.pbauerochse.worklogviewer.util.FormattingUtil;
+import de.pbauerochse.worklogviewer.util.HyperlinkUtil;
 import de.pbauerochse.worklogviewer.version.GitHubVersion;
 import de.pbauerochse.worklogviewer.version.Version;
 import de.pbauerochse.worklogviewer.youtrack.domain.GroupByCategory;
@@ -45,7 +47,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.concurrent.*;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Patrick Bauerochse

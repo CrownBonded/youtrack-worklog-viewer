@@ -1,14 +1,22 @@
 package de.pbauerochse.worklogviewer.settings;
 
+import de.pbauerochse.worklogviewer.settings.properties.Property;
+
 /**
  * @author Patrick Bauerochse
  */
 public class WindowSettings {
 
+    @Property("window.width")
     private int width = 800;
+
+    @Property("window.height")
     private int height = 600;
 
+    @Property("window.x")
     private int posX = 0;
+
+    @Property("window.y")
     private int posY = 0;
 
     public int getWidth() {

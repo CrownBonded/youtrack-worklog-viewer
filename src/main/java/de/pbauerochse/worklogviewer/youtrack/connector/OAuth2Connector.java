@@ -1,10 +1,9 @@
 package de.pbauerochse.worklogviewer.youtrack.connector;
 
 import com.intellij.hub.auth.oauth2.token.AccessToken;
+import de.pbauerochse.worklogviewer.settings.Settings;
 import de.pbauerochse.worklogviewer.settings.YoutrackSettings;
 import de.pbauerochse.worklogviewer.util.ExceptionUtil;
-import de.pbauerochse.worklogviewer.settings.Settings;
-import de.pbauerochse.worklogviewer.util.SettingsUtil;
 import jetbrains.jetpass.client.hub.HubClient;
 import jetbrains.jetpass.client.oauth2.OAuth2Client;
 import jetbrains.jetpass.client.oauth2.token.OAuth2ResourceOwnerFlow;

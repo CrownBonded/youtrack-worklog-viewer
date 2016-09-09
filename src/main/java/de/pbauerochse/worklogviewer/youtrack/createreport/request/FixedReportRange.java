@@ -1,7 +1,5 @@
 package de.pbauerochse.worklogviewer.youtrack.createreport.request;
 
-import de.pbauerochse.worklogviewer.util.FormattingUtil;
-
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;

@@ -1,13 +1,13 @@
 package de.pbauerochse.worklogviewer.util;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import de.pbauerochse.worklogviewer.youtrack.createreport.request.CreateReportRequestEntity;
-import de.pbauerochse.worklogviewer.youtrack.createreport.response.ReportDetailsResponse;
-import de.pbauerochse.worklogviewer.youtrack.domain.GroupByCategory;
 import de.pbauerochse.worklogviewer.domain.ReportTimerange;
 import de.pbauerochse.worklogviewer.domain.TimerangeProvider;
 import de.pbauerochse.worklogviewer.domain.timerangeprovider.TimerangeProviderFactory;
 import de.pbauerochse.worklogviewer.fx.tasks.FetchTimereportContext;
+import de.pbauerochse.worklogviewer.youtrack.createreport.request.CreateReportRequestEntity;
+import de.pbauerochse.worklogviewer.youtrack.createreport.response.ReportDetailsResponse;
+import de.pbauerochse.worklogviewer.youtrack.domain.GroupByCategory;
 import org.hamcrest.core.Is;
 import org.junit.Assert;
 import org.junit.Test;

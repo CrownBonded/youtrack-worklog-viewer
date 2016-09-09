@@ -4,7 +4,6 @@ import de.pbauerochse.worklogviewer.WorklogViewer;
 import de.pbauerochse.worklogviewer.fx.converter.YouTrackAuthenticationMethodStringConverter;
 import de.pbauerochse.worklogviewer.settings.Settings;
 import de.pbauerochse.worklogviewer.settings.YoutrackSettings;
-import de.pbauerochse.worklogviewer.util.SettingsUtil;
 import de.pbauerochse.worklogviewer.youtrack.connector.YouTrackAuthenticationMethod;
 import javafx.application.Platform;
 import javafx.fxml.FXML;

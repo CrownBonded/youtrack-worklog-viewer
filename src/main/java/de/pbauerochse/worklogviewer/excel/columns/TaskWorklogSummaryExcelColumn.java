@@ -2,9 +2,8 @@ package de.pbauerochse.worklogviewer.excel.columns;
 
 import de.pbauerochse.worklogviewer.excel.ExcelColumnRenderer;
 import de.pbauerochse.worklogviewer.fx.tabs.domain.DisplayRow;
-import de.pbauerochse.worklogviewer.util.FormattingUtil;
 import de.pbauerochse.worklogviewer.settings.Settings;
-import de.pbauerochse.worklogviewer.util.SettingsUtil;
+import de.pbauerochse.worklogviewer.util.FormattingUtil;
 import javafx.scene.control.TreeItem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
